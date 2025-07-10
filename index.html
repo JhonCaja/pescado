@@ -171,6 +171,8 @@
             box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
             overflow: hidden;
             transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
         }
 
         .product-card:hover {
@@ -178,14 +180,14 @@
         }
 
         .product-image-container {
-            padding: 2rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            height: 200px;
+            overflow: hidden;
         }
 
         .product-image {
-            font-size: 5rem;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
             transition: transform 0.5s ease-in-out;
         }
 
@@ -195,6 +197,9 @@
 
         .product-info {
             padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         .product-name {
@@ -205,14 +210,14 @@
         .product-description {
             color: var(--color-text-light);
             margin-top: 0.5rem;
-            height: 3rem; /* Altura fija para alinear tarjetas */
+            flex-grow: 1;
+            margin-bottom: 1.5rem;
         }
 
         .product-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 1.5rem;
         }
 
         .product-price {
@@ -263,7 +268,7 @@
             border-radius: 1rem;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
             width: 100%;
-            max-width: 32rem;
+            max-width: 36rem;
             margin: 1rem;
             display: flex;
             flex-direction: column;
@@ -317,9 +322,10 @@
         }
 
         .cart-item-image {
-            font-size: 2.5rem;
-            padding: 0.5rem;
+            width: 64px;
+            height: 64px;
             border-radius: 0.5rem;
+            object-fit: cover;
         }
 
         .cart-item-info {
@@ -485,14 +491,14 @@
         document.addEventListener('DOMContentLoaded', () => {
             // --- DATOS Y ESTADO DE LA APLICACIÓN ---
             const fishData = [
-                { id: 1, name: 'Trucha Fresca', price: 25.50, image: '🐟', color: 'linear-gradient(to right, #60a5fa, #3b82f6)', description: 'Carne rosada y suave, ideal para la parrilla.' },
-                { id: 2, name: 'Salmón del Sur', price: 45.00, image: '🍣', color: 'linear-gradient(to right, #fb923c, #f97316)', description: 'Rico en Omega-3, perfecto para sushi o al horno.' },
-                { id: 3, name: 'Pulpo Entero', price: 38.00, image: '🐙', color: 'linear-gradient(to right, #a78bfa, #8b5cf6)', description: 'Tierno y sabroso, un manjar del mar.' },
-                { id: 4, name: 'Langostinos', price: 55.80, image: '🦐', color: 'linear-gradient(to right, #f472b6, #ec4899)', description: 'Grandes y jugosos, para cócteles o al ajillo.' },
-                { id: 5, name: 'Conchas de Abanico', price: 32.00, image: '🐚', color: 'linear-gradient(to right, #e5e5e5, #a3a3a3)', description: 'Docena de conchas frescas para parmesana.' },
-                { id: 6, name: 'Calamar', price: 22.50, image: '🦑', color: 'linear-gradient(to right, #f0abfc, #d946ef)', description: 'Perfecto para chicharrón o arroz con mariscos.' },
-                { id: 7, name: 'Cangrejo', price: 48.00, image: '🦀', color: 'linear-gradient(to right, #f87171, #ef4444)', description: 'Pulpa dulce y deliciosa, ideal para sopas.' },
-                { id: 8, name: 'Atún en Filete', price: 35.00, image: '🐠', color: 'linear-gradient(to right, #34d399, #10b981)', description: 'Fresco y versátil, para sellar o en ensaladas.' },
+                { id: 1, name: 'Trucha Fresca', price: 25.50, image: 'https://st.depositphotos.com/1194063/3590/i/450/depositphotos_35905331-stock-photo-rainbow-trout-with-fresh-herbs.jpg', description: 'Carne rosada y suave, ideal para la parrilla.' },
+                { id: 2, name: 'Salmón del Sur', price: 45.00, image: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800&auto=format&fit=crop', description: 'Rico en Omega-3, perfecto para sushi o al horno.' },
+                { id: 3, name: 'Pulpo Entero', price: 38.00, image: 'https://eldelfinonline.com/wp-content/uploads/2015/08/pulpo-espa_ol-web_4.jpg', description: 'Tierno y sabroso, un manjar del mar.' },
+                { id: 4, name: 'Langostinos', price: 55.80, image: 'https://peru.info/archivos/publicacion/35-imagen-1026502162019.jpg', description: 'Grandes y jugosos, para cócteles o al ajillo.' },
+                { id: 5, name: 'Conchas de Abanico', price: 32.00, image: 'https://agraria.pe/imgs/a/lx/exportaciones-de-conchas-de-abanico-por-parte-de-peru-regist-39024.jpg', description: 'Docena de conchas frescas para parmesana.' },
+                { id: 6, name: 'Calamar', price: 22.50, image: 'https://mariscodeislacristina.com/wp-content/uploads/2021/03/IMG_0581-scaled.jpg', description: 'Perfecto para chicharrón o arroz con mariscos.' },
+                { id: 7, name: 'Cangrejo', price: 48.00, image: 'https://thumbs.dreamstime.com/z/cangrejos-de-concha-azul-vivos-la-bah%C3%ADa-chesapeake-en-el-mercado-local-mariscos-226983490.jpg', description: 'Pulpa dulce y deliciosa, ideal para sopas.' },
+                { id: 8, name: 'Atún en Filete', price: 35.00, image: 'https://cdn.pixabay.com/photo/2021/08/23/17/35/tuna-6568356_640.jpg', description: 'Fresco y versátil, para sellar o en ensaladas.' },
             ];
 
             let cart = [];
@@ -516,8 +522,8 @@
                     const card = document.createElement('div');
                     card.className = 'product-card';
                     card.innerHTML = `
-                        <div class="product-image-container" style="background: ${fish.color};">
-                            <div class="product-image">${fish.image}</div>
+                        <div class="product-image-container">
+                            <img src="${fish.image}" alt="${fish.name}" class="product-image" loading="lazy">
                         </div>
                         <div class="product-info">
                             <h3 class="product-name">${fish.name}</h3>
@@ -554,7 +560,7 @@
                         const listItem = document.createElement('li');
                         listItem.className = 'cart-item';
                         listItem.innerHTML = `
-                            <div class="cart-item-image" style="background: ${item.color};">${item.image}</div>
+                            <img src="${item.image}" alt="${item.name}" class="cart-item-image">
                             <div class="cart-item-info">
                                 <h3 class="cart-item-name">${item.name}</h3>
                                 <p class="cart-item-price">S/ ${item.price.toFixed(2)}</p>
